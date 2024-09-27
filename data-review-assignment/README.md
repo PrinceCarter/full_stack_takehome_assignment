@@ -1,40 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lume AI Full-Stack Takehome Assignment
 
-## Getting Started
+This project implements a data review interface using Next.js, React, and ShadCN + Tailwind CSS, meeting all the specified requirements. It provides a user-friendly table interface for reviewing JSON data, highlighting validation errors, displaying error messages interactively on hover, and exporting data in CSV format.
 
-First, run the development server:
+## Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Clone the repository.
+- `cd data-review-assignment`
+- Install dependencies using `npm install`.
+- Run the project using `npm run dev`.
+- Access the application at `http://localhost:3000`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+### Data Query from API
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- A Next.js API route is implemented to return mock JSON data as specified in the requirements. The data is correctly served to the frontend for display and interaction.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Data Review Table
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Data is presented in a tabular format.
+- Each column is color-coded based on validation severity:
+  - Red: Critical errors that must be fixed.
+  - Yellow: Warnings that should be reviewed.
+  - Green: Valid fields.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Hoverable Error Messages
 
-## Learn More
+- Cells with validation errors include tooltips that show error messages when hovered over, providing an intuitive way for users to understand issues at a glance.
 
-To learn more about Next.js, take a look at the following resources:
+### Error Summary Modal
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Each row includes an "View Errors" button in the Error Summary column that opens a modal. The modal displays detailed information about all validation errors for that specific record, enhancing error traceability and review.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### CSV Export
 
-## Deploy on Vercel
+- Users can export the data to a CSV format. The export respects any active filters, ensuring that only the currently visible data is exported.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design Considerations
+- No Provided Figma: Without strict design guidelines, I chose a minimalist and clean layout (as lots of data can be an eye-sore to look at), using ShadCN Tailwind CSS for styling and [this mock table](https://next-shadcn-ui-table.vercel.app/) for design inspiration.
+- Color Scheme: Colors for errors (red, yellow, green) are chosen for clear visual distinction, enhancing usability and allowing for quick identification of data issues.
+- Pagination: The table includes pagination to manage large datasets, and filtering resets to the first page for a consistent user experience.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Tech Stack
+- Next.js: Used for creating the API route and server-side rendering.
+- React: Frontend components for data interaction, filtering, and export.
+- Tailwind CSS: Used for styling the table, tooltips, modals, and overall interface.
+
+## Usage
+- Filtering: Users can filter data by name and status. The table automatically updates to reflect the filters applied.
+- Pagination: Pagination controls allow navigation through large datasets.
+- Error Review: Hover over cells to view error messages, or click "View Errors" to open a detailed modal.
+- CSV Export: Click "Export CSV" to download the current view of the data in CSV format.
+
+## Assumptions
+- The data model is static and follows the given format.
+  - Reduces the complexity of handling dynamic or changing data structures.
+- Error color-coding (red, yellow, green) is based on predefined severity levels.
+  - Avoids the need to handle unknown or custom error severities dynamically.
+- The export functionality only considers filtered data at the time of export.
+  - Simplifies the export logic to handle just the filtered data, reflecting what the user sees, rather than managing separate data sets or applying additional export-specific filters.
+
+## Improvements I Would've Made
+- Enhance filtering capabilities (e.g., by city, email) for more flexible data review (much like [this mock table](https://next-shadcn-ui-table.vercel.app/)).
+- Add column sorting to allow users to organize data as needed (much like [this mock table](https://next-shadcn-ui-table.vercel.app/)).
+- Implement inline editing for quick fixes to validation errors directly in the table (Would require POST endpoint to persist the data changes).
