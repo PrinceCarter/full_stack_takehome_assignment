@@ -63,3 +63,4 @@ This project implements a data review interface using Next.js, React, and ShadCN
 - Enhance filtering capabilities (e.g., by city, email) for more flexible data review (much like [this mock table](https://next-shadcn-ui-table.vercel.app/)).
 - Add column sorting to allow users to organize data as needed (much like [this mock table](https://next-shadcn-ui-table.vercel.app/)).
 - Implement inline editing for quick fixes to validation errors directly in the table (Would require POST endpoint to persist the data changes).
+- Put the pagination logic in the backend. At scale, fetching all records at once could lead to higher memory usage, longer loading times, and increased network costs. Implementing pagination on the backend would involve modifying the API endpoint to accept parameters for `page` and `limit`. The server would then return only the necessary subset of data based on these parameters.
